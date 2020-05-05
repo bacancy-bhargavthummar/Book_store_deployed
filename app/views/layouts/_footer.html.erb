@@ -1,0 +1,34 @@
+<div class="mt-5 pt-5 pb-5 footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-xs-12 about-company">
+        <h2>ABOUT </h2>
+        <p class="pr-5 text-white-50">This site helps you find your required category of books And also provide facility to register your self as book seller for growth of your career.</p>
+      </div>
+      <div class="col-lg-3 col-xs-12 links">
+      <h4 class="mt-lg-0 mt-sm-3">Links</h4>
+        <ul class="m-0 p-0">
+        <% if user_signed_in? %>
+          <li>- <%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+          <% if current_user.book_sellers %>
+            <li>- <%= link_to 'Your Uploads','/books/user_uploads' %> </li>
+          <% end %>
+        <% else %>
+          <li>- <%= link_to "Sign in", new_user_session_path %></li>
+          <li>- <%= link_to "Create Account", new_user_registration_path %></li> 
+        <% end %>
+    </div>
+    <div>
+      <h4>Location</h4>
+      <p></i>City: Ahmedabad, State: Gujarat, Country: India</p>
+      <p class="mb-0"></i>(541) 754-3010</p>
+      <p></i>Zip code: 111111</p>
+    </div>
+  </div>
+    <div class="row mt-5">
+      <div class="col copyright">
+        <p class=""><small class="text-white-50">© 2020. All Rights Reserved.</small></p>
+      </div>
+    </div>
+  </div>
+</div>

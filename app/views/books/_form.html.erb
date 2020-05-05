@@ -1,0 +1,75 @@
+  <%= form_with(model: book, local: true) do |form| %>
+    <% if book.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+        <ul>
+          <% book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-8 col-xl-6">
+        <div class="row align-items-center">
+          <div class="col mt-4">
+            Book Name :<%= form.text_field :name, class: "form-control", placeholder: "Book Name" %>
+          </div>
+        </div>
+        <div class="row align-items-center mt-4">
+          <div class="col">
+            Description :<%= form.text_area :description, class: "form-control", placeholder: "Description" %>
+          </div>
+        </div>
+        <div class="row align-items-center mt-4">
+          <div class="col">
+            Author Name :<%= form.text_field :author, class: "form-control", placeholder: "Author Name" %>
+          </div>
+        </div>
+        <% if book.isbn.present? %>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              ISBN :<%= form.text_field :isbn, value: book.isbn, readonly: true , class: "form-control" %>
+            </div>
+          </div>
+        <% else %>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              ISBN : <%= form.text_field :isbn, class: "form-control", placeholder: "ISBN" %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="row align-items-center mt-4">
+          <div class="col">
+            Category : <%= form.collection_select :category_id, Category.all,:id,:name, include_blank: false, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="row align-items-center mt-4">
+          <div class="col">
+            Upload Image of Book <%= form.file_field :image %>
+          </div>
+        </div>
+
+        <div class="row align-items-center mt-4">
+          <div class="col">
+            Price :<%= form.text_field :price, class: "form-control", placeholder: "Price" %>
+          </div>
+          <div class="col">
+            Total Quantity :<%= form.text_field :total_qty, class: "form-control", placeholder: "Total Quantity" %>
+          </div>
+        </div>
+
+        <div class="row justify-content-start mt-4">
+          <div class="col">
+            <%= form.submit %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+  <% end %>
+

@@ -1,0 +1,3 @@
+<% @books.each do |book| %>
+  <%= render partial: "store/store_card", locals: {book: book} %>
+<% end %>

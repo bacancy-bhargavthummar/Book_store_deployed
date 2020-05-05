@@ -1,0 +1,30 @@
+<h2><%= @user.name %>'s Profile </h2>
+<hr>
+
+<p>
+  <strong>Name: </strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Phone No: </strong>
+  <%= @user.phone_no %>
+</p>
+
+<p>
+  <strong>Email: </strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Gender: </strong>
+  <%= @user.gender %>
+</p>
+
+<br>
+<%= link_to "Show all books", individual_uploads_users_path(@user), class: "btn btn-light btn-sm"  %>
+<hr><hr>
+
+<%= link_to 'Back', '/users', class: "btn btn-dark" %>
+
+

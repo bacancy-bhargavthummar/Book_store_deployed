@@ -1,0 +1,47 @@
+<%= javascript_pack_tag 'button_to_top' %>
+
+<h1>All Users</h1>
+<%= search_form_for @user, url: users_path, class:"form-inline md-form mr-auto mb-4" do |b| %>
+  <%= b.search_field :name_or_email_or_phone_no_cont, class: "form-control mr-sm-2" %>
+  <button class="btn btn-dark" type="submit">Search</button>
+<% end %> 
+<br>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>User ID</th>
+      <th>name</th>
+      <th>email</th>
+      <th>Phone no</th>
+      <th>Gender</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users_result.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone_no %></td>
+        <td><%= user.gender %></td>
+        <td><%= link_to 'show',user_path(user), class: "btn btn-light btn-sm" %></td>
+        <td><%= link_to 'Pending Requests', pending_requests_user_path(user), class: "btn btn-outline-primary btn-sm" %></td> 
+        <td><%= link_to 'Accepted Requests', approved_requests_user_path(user), class: "btn btn-outline-success btn-sm" %></td> 
+        <td><%= link_to 'Rejected Requests', rejected_requests_user_path(user), class: "btn btn-outline-warning btn-sm"  %></td> 
+        <td><%= link_to 'Delete Profile',user_destroy_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @users_result %>
+  </div>  
+  <%= will_paginate @users_result %>
+  <br>
+</div>

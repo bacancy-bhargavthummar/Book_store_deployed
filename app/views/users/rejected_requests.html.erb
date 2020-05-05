@@ -1,0 +1,14 @@
+<%= javascript_pack_tag 'button_to_top' %>
+
+<article>
+  <h1><%= @user.name %>'s Rejected requests</h1>
+  <hr>
+  <h5>Phone No. : <%= @user.phone_no %></h5>
+  <h5>Email : <%= @user.email %></h5>
+  <hr>
+  <% if @carts.present? %>
+    <%= render partial: "requests", locals: { cart: @carts } %>
+  <% else %>
+    <h1>Not any rejected requests</h1>
+  <% end %>
+</article>

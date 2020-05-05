@@ -1,0 +1,49 @@
+<header class="bg-dark">
+  <div class="n demo">
+    <%= link_to "Online Book Store", root_path, id: "logo" %>
+    <nav>
+      <ul class="nav justify-content-end">    
+        <%= link_to "Home",root_path %>
+            
+        <% if current_user %>
+          <%= link_to 'Your Uploads','/books/user_uploads' %>
+      
+          <div class="btn-group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary btn-sm dropdown-toggle border border-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              &nbsp;&nbsp;My Account&nbsp;&nbsp;
+            </button>
+          <div class="dropdown-menu bg-dark border border-white dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+            <h6 class="dropdown-header" style="color: white"><%= current_user.name.upcase %></h6>
+                <div class="dropdown-divider"></div>
+                  <%= link_to 'Previous Carts',your_carts_carts_path, class: "dropdown-item" %>
+                  <%= link_to "Edit Profile",edit_user_registration_path, class: "dropdown-item" %>              
+                  <%= link_to "Sign Out", destroy_user_session_path, method: :delete,class: "dropdown-item" %>
+                </div>
+          </div> 
+          &nbsp&nbsp;
+        <% else %>
+          <%= link_to 'Sign Up', new_user_registration_path %>
+          <%=link_to 'Sign In', user_session_path%>
+        <% end %>
+
+        <% if current_user && current_user.admin? %>      
+          <div class="btn-group">
+          <button id="btnGroupDrop1" type="button" class="btn btn-secondary btn-sm dropdown-toggle border border-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            &nbsp;&nbsp;Admin Corner&nbsp;&nbsp;
+          </button>
+          <div class="dropdown-menu bg-dark border border-white dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+            <div class="dropdown-divider"></div>
+              <%= link_to 'Users Data','/users', class: "dropdown-item" %>
+              <%= link_to 'Books List', books_path, class: "dropdown-item" %>  
+              <%= link_to 'Add Category',new_category_path, class: "dropdown-item" %> 
+              <%= link_to 'Show Category',categories_path, class: "dropdown-item" %> 
+              <%= link_to 'Pending Requests', all_pending_requests_user_path(current_user) , class: "dropdown-item" %>
+              <%= link_to 'Seller info','/users/seller', class: "dropdown-item" %> 
+            </div>
+          </div>      
+          &nbsp&nbsp;
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>

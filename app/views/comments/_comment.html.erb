@@ -1,0 +1,15 @@
+<p> 
+	<strong>Commenter : </strong>
+	<%= User.find(comment.user_id).name %>
+</p>
+
+<p>
+	<strong>Comment:</strong>
+	<%= comment.body %>
+  <% if current_user && current_user.admin %>
+    <%= button_to 'Destroy Comment', [comment.book, comment],
+    method: :delete, remote: true,
+    data: { confirm: 'Are you sure?' } %> 
+  <% end %>
+</p>
+<hr>

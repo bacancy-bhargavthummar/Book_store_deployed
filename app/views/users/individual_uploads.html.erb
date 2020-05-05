@@ -1,0 +1,61 @@
+<%= javascript_pack_tag 'button_to_top' %>
+<%= javascript_include_tag "chartkick" %>
+      
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th width="10%">Image</th>
+      <th width="9%">Name</th>
+      <th width="9%">Category</th>
+      <th width="9%">Price</th>
+      <th width="9%">Description</th>
+      <th width="9%">Author</th>
+      <th width="9%">ISBN</th>
+      <th width="9%">Total Qty</th>
+      <th width="9%">Sold Qty</th>
+      <th width="9%"></th>
+      <th width="9%"></th>
+      <th></th>
+    </tr>
+  </thead>   
+  <tbody>
+    <% cache @books_result do %>
+      <% @books_result.each do |book| %>
+        <% cache book do %>
+          <tr>
+            <td width="10%"><%= book.image.present? ? image_tag(book.image, style:"width:100px;height:100px") : "" %>
+            <td width="9%"><%= book.name %></td>
+            <td width="9%"><%= book.category.name %></td>
+            <td width="9%" class="price"><%= book.price %> INR</td>
+            <td width="9%" class="text-overflows"><%= book.description.truncate(10) %></td>
+            <td width="9%"><%= book.author %></td>
+            <td width="9%"><%= book.isbn %></td>
+            <td width="9%"><%= book.total_qty %></td>
+            <td width="9%"><%= book.selling_quantity %></td>
+            <td width="9%"><%= link_to 'Show', book %></td>
+            <td><%= button_to 'Add to Cart', line_items_path(book_id: book) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="digg_pagination">
+  <div class="page_info">
+      <%= page_entries_info @books_result %>
+  </div>  
+  <%= will_paginate @books_result %>
+</div>
+
+<br><hr><hr><br>
+<h2><b><%= @user.name %>'s Selling Graph</b></h2>
+<br>
+<%= form_tag(individual_uploads_users_path(@user), method: "get", remote: false, class:'md-form mr-auto mb-4 ml-5') do %>
+  <%= text_field_tag :min_date, params[:min_date], :class => 'start_graph', placeholder: "Start Date (dd-mm-yyyy)" %>&nbsp;&nbsp;&nbsp;&nbsp; 
+  <%= text_field_tag :max_date, params[:max_date], :class => 'end_graph', placeholder: "End date (dd-mm-yyyy)" %>&nbsp;&nbsp;&nbsp;&nbsp;
+  <button class="btn btn-dark" type="submit">Search</button>
+<% end %>
+  
+<%= column_chart @book_hash %>   
+<br><br><hr<br>

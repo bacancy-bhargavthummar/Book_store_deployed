@@ -1,0 +1,8 @@
+$("#books_partial").append("<%= j render partial: 'store/books', locals: {books: @books} %>");
+
+<% if @books.next_page %>
+   $('.pagination').replaceWith('<%= j will_paginate(@books) %>');
+<% else %>
+   $(window).off('scroll');
+   $('.pagination').remove();
+<% end %>

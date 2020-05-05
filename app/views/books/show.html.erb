@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <h1 class="my-4">Book</h1>
+      <div class="list-group">
+        <% if @book_seller.present? %>
+          <% if current_user && (@book_seller.seller_id == current_user.id || current_user.admin) %>
+            <%= link_to 'Edit Book Details', edit_book_path(@book ,@book_seller), class: "list-group-item" %>
+          <% end %>
+        <% end %>
+        <% if current_user && current_user.admin %>
+            <%= link_to 'Destroy', @book, method: :delete, data: { confirm: 'Are you sure?' }, class: "list-group-item" %>
+        <% end %> 
+        <%= link_to 'Back', root_path, class: "list-group-item" %>
+        <td><strong><%= link_to 'Add to Cart', line_items_path(book_id: @book.id), method: :post, class: "list-group-item" %></strong></td>
+      </div>
+    </div>
+
+    <div class="col-lg-9">
+      <div class="card mt-4">
+        <div style="width:600px; heigth: auto" >
+          <%= @book.image.present? ? image_tag(@book.image, style:"height: 300px; width:200px; padding: 10px; margin-left: 300px") : "Image Not Available"%>
+        </div>
+
+        <div class="card-body">
+          <h3 class="card-title"><%= @book.name %></h3>
+          <hr>
+          <h5 class="card-title">Author : <%= @book.author %></h5>
+          <h5 class="card-title">ISBN : <%= @book.isbn %></h5>
+          <h5 class="card-title">Category : <%= @book.category.name %></h5>
+          <% if current_user && current_user.admin %>
+            <p>
+              <h5 class="card-title">Total Quantity : <%= @book.total_qty %></h5>
+            </p>
+          <% end %>
+
+          <h4><b>Price : <%= @book.price %> INR</b></h4>
+          <hr>
+          <label><b>Description :</b></label>
+          <p class="card-text"><%= @book.description %></p>
+          <hr>
+        </div>
+      </div><hr>
+      <h2>Comments</h2>
+      <div id="comments" style="height: 400px; overflow-y: scroll">
+        <%= render @book.comments %>
+      </div>
+      <hr>
+      
+      <% if current_user %>
+        <h2> Add Comments here </h2>
+        <%= render 'comments/form' %>
+      <% else %>
+        <h3> Please Sign in for add comments </h3>
+      <% end %>
+      <br>
+    </div>
+  </div>
+</div>

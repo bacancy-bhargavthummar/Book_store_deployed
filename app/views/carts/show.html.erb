@@ -1,0 +1,17 @@
+<article>
+  <h2>Your Cart</h2>
+  <h5>Time : <%= Time.now.strftime("%m/%d/%Y at %I:%M %p") %></h5>
+  <h5>Name : <%= @cart.user.name %></h5>
+  <h5>Email : <%= @cart.user.email %></h5>
+  <h5>Cart No : <%="#{@cart.id}."%> </h5>
+  <hr>
+  <div id="cart_listing">
+    <%= render partial: "common", locals: { cart: @cart } %>
+  </div>
+  <% if !@cart.status %>
+  &nbsp
+    <%= link_to 'Empty cart', @cart, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-warning" %>
+    <%= link_to 'back to Catalog', root_path, class: "btn btn-info" %>
+  <% end %>
+  <hr>
+</article>

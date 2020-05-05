@@ -1,0 +1,70 @@
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mb-5">Edit Profile</h2>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card border-secondary">
+                        <div class="card-header">
+                            <h3 class="mb-0 my-2"></h3>
+                        </div>
+                        <div class="card-body">
+                        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+                            <%= render "devise/shared/error_messages", resource: resource %>
+
+                                <div class="form-group">
+                                    <label for="inputName">Name</label>
+                                    <%= f.text_field :name, autofocus: true, autocomplete: "user_name", placeholder: "Full name", class:"form-control" %>     
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"email@xyz.com", class:"form-control" %>
+                                </div>
+                                <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                                    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+                                <% end %>
+                                <div class="form-group">
+                                    <label>Phone No</label>
+                                    <%= f.text_field :phone_no, autofocus: true, autocomplete: "phone_no", placeholder:"+910000000000", class:"form-control"%>                                
+                                </div>
+                                <div class="form-group">
+                                    Gender<br/>
+                                    <%= f.radio_button :gender, 'male' %> Male
+                                    <%= f.radio_button :gender, 'female' %> Female
+                                    <%= f.radio_button :gender, 'other' %> Other<br> 
+                                </div>
+                                    
+                                <div class="form-group">
+                                    <label>Password <i>(leave blank if you dont want to change it)</i></label><br />
+                                    <%= f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder: "new password" %>
+                                    <% if @minimum_password_length %>
+                                        <em>(<%= @minimum_password_length %> characters minimum)</em>
+                                    <% end %><br />
+                                </div>
+    
+                                <div class="form-group">
+                                    <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control",placeholder:"Confirm Password" %> 
+                                </div>      
+                                
+                                <div class="form-group">
+                                    <label>Current Password <i>(we need your current password to confirm your changes)</i></label><br />
+                                    <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control", placeholder:"current password" %>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit", class="btn btn-success btn-lg float-right">submit</button>
+                                </div>
+                            <% end %>
+                            <%= render "devise/shared/links" %>
+                            <%= link_to "Back", root_path %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+<!--/container-->

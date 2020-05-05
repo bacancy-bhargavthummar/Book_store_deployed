@@ -1,0 +1,62 @@
+<%= javascript_pack_tag 'page_and_button' %>
+
+<div class="bg-dark py-5 mb-5">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-lg-12">
+        <h1 class="display-4 text-white mt-5 mb-2">Your Own Book Store</h1>
+        <p class="lead mb-5 text-white-50">Good friends, good books, and a sleepy conscience: this is the ideal life.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <h1 class="my-4"><small>See collection...</small></h1>
+      <div class="row" id="books_partial">
+        <%= render partial: "store/books", locals: {books: @books} %>
+      </div>
+
+      <div id="infinite-scrolling">
+        <%= will_paginate @books %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+    
+      <div class="card my-4">
+        <h5 class="card-header">Search</h5>
+        <div class="card-body"> 
+          <%= form_tag(root_path, method: "get", remote: false, class:'form-inline md-form mr-auto mb-4') do %>
+            <%= text_field_tag :query, params[:query], class: "form-control mr-sm-2" %>
+            <button class="btn btn-dark" type="submit">Search</button>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card my-4">
+        <h5 class="card-header">Categories</h5>
+        <div class="card-body">
+          <% @categories.each do |category| %>
+            <li><%= link_to category.name, category_filter_store_index_path(category), remote: true %></li>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card my-4">
+        <h5 class="card-header">Add Your Own Book For Sell</h5>
+        <div class="card-body">
+          <% if current_user %>
+            <%= link_to 'New Book', new_book_path, class: "btn btn-danger" %>
+          <% else %>
+            <i>Sign In to Add.</i>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
