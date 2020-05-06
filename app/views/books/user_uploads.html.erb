@@ -1,5 +1,5 @@
 <%= javascript_pack_tag 'button_to_top' %>
-<%= javascript_include_tag "chartkick" %>
+<%= javascript_include_tag 'chartkick' %>
 
 <h1>Your Uploads</h1>
 <br><hr><br>
@@ -31,6 +31,7 @@
     <% cache @books_result do %>
       <% @books_result.each do |book| %>
         <% cache book do %>
+          <%= javascript_include_tag 'chartkick' %>
           <tr>
             <td width="10%"><%= book.image.present? ? image_tag(book.image, style:"width:100px;height:100px") : "" %>
             <td width="9%"><%= book.name %></td>
