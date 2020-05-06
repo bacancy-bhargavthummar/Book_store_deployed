@@ -16,8 +16,6 @@ module PLogin
     config.time_zone = 'Kolkata'
     config.active_record.default_timezone = :local
 
-    include ActiveSupport::LoggerSilence if defined?(ActiveSupport::LoggerSilence)
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
