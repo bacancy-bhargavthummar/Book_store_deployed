@@ -31,6 +31,7 @@
       <% cache @books_result do %>
         <% @books_result.each do |book| %>
           <% cache book do %>
+            <%= javascript_include_tag "chartkick" %>
             <tr>
               <td width="10%"><%= book.image.present? ? image_tag(book.image, style:"width:100px;height:100px") : "" %>
               <td width="9%"><%= book.name %></td>
