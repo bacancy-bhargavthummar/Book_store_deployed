@@ -1,82 +1,80 @@
 <%= javascript_pack_tag 'button_to_top' %>
+<%= javascript_include_tag "chartkick" %>
 
 <h1>Your Uploads</h1>
 <br><hr><br>
 
-  <%= form_tag("/books/user_uploads", method: "get", remote: false, class:'form-inline md-form mr-auto mb-4') do %>
-    <%= text_field_tag :query, params[:query], class: "form-control mr-sm-2" %>
-    <button class="btn btn-dark" type="submit">Search</button>
-  <% end %>
-    
-    
-  <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th width="10%">Image</th>
-        <th width="8%">Name</th>
-        <th width="8%">Category</th>
-        <th width="8%">Price</th>
-        <th width="8%">Description</th>
-        <th width="8%">Author</th>
-        <th width="8%">ISBN</th>
-        <th width="8%">Total Qty</th>
-        <th width="8%">Sold Qty</th>
-        <th width="10%">Selling Graph</th>
-        <th width="8%"></th>
-        <th width="8%"></th>
-        <th></th>
-      </tr>
-    </thead>    
-    <tbody>
-      <% cache @books_result do %>
-        <% @books_result.each do |book| %>
-          <% cache book do %>
-            <%= javascript_include_tag "chartkick" %>
-            <tr>
-              <td width="10%"><%= book.image.present? ? image_tag(book.image, style:"width:100px;height:100px") : "" %>
-              <td width="9%"><%= book.name %></td>
-              <td width="9%"><%= book.category.name %></td>
-              <td width="9%" class="price"><%= book.price %> INR</td>
-              <td width="9%" class="text-overflows"><%= book.description.truncate(10) %></td>
-              <td width="9%"><%= book.author %></td>
-              <td width="9%"><%= book.isbn %></td>
-              <td width="9%"><%= book.total_qty %></td>
-              <td width="9%"><%= book.selling_quantity %></td>
-              <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#show_graph_<%= book.id.to_s %>"></button></td>
-             
-              <div id="show_graph_<%= book.id.to_s %>" class="modal fade" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">  
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title"><i>Book Selling Graph</i></h5>
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                      <h4>Book : <%= book.name %></h4>
-                      <%= line_chart individual_book_selling_graph(book) %> 
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+<%= form_tag("/books/user_uploads", method: "get", remote: false, class:'form-inline md-form mr-auto mb-4') do %>
+  <%= text_field_tag :query, params[:query], class: "form-control mr-sm-2" %>
+  <button class="btn btn-dark" type="submit">Search</button>
+<% end %>
+  
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th width="10%">Image</th>
+      <th width="8%">Name</th>
+      <th width="8%">Category</th>
+      <th width="8%">Price</th>
+      <th width="8%">Description</th>
+      <th width="8%">Author</th>
+      <th width="8%">ISBN</th>
+      <th width="8%">Total Qty</th>
+      <th width="8%">Sold Qty</th>
+      <th width="10%">Selling Graph</th>
+      <th width="8%"></th>
+      <th width="8%"></th>
+      <th></th>
+    </tr>
+  </thead>    
+  <tbody>
+    <% cache @books_result do %>
+      <% @books_result.each do |book| %>
+        <% cache book do %>
+          <tr>
+            <td width="10%"><%= book.image.present? ? image_tag(book.image, style:"width:100px;height:100px") : "" %>
+            <td width="9%"><%= book.name %></td>
+            <td width="9%"><%= book.category.name %></td>
+            <td width="9%" class="price"><%= book.price %> INR</td>
+            <td width="9%" class="text-overflows"><%= book.description.truncate(10) %></td>
+            <td width="9%"><%= book.author %></td>
+            <td width="9%"><%= book.isbn %></td>
+            <td width="9%"><%= book.total_qty %></td>
+            <td width="9%"><%= book.selling_quantity %></td>
+            <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#show_graph_<%= book.id.to_s %>"></button></td>
+           
+            <div id="show_graph_<%= book.id.to_s %>" class="modal fade" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">  
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title"><i>Book Selling Graph</i></h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <h4>Book : <%= book.name %></h4>
+                    <%= line_chart individual_book_selling_graph(book) %> 
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </div>
-              </div>  
-
-              <td width="9%"><%= link_to 'Show', book %></td>
-              <td><%= button_to 'Add to Cart', line_items_path(book_id: book) %></td>
-            </tr>
-          <% end %>
+              </div>
+            </div>  
+            <td width="9%"><%= link_to 'Show', book %></td>
+            <td><%= button_to 'Add to Cart', line_items_path(book_id: book) %></td>
+          </tr>
         <% end %>
       <% end %>
-    </tbody>
-  </table>
-  
-  <div class="digg_pagination">
-    <div class="page_info">
-      <%= page_entries_info @books_result %>
-    </div>  
-    <%= will_paginate @books_result %>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @books_result %>
   </div>  
+  <%= will_paginate @books_result %>
+</div>  
   
 <br><hr><hr><br>
 <h2><b>Your Selling Graph</b></h2><br>
