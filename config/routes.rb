@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  default_url_options host: 'bhargav.thummar@bacancytechnology.com'
 
   root to: 'store#index'
 
