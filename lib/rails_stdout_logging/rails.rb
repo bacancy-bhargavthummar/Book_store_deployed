@@ -1,1 +1,0 @@
-include ActiveSupport::LoggerSilence if defined?(ActiveSupport::LoggerSilence)
