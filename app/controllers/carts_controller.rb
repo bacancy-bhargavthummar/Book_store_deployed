@@ -12,7 +12,7 @@ class CartsController < ApplicationController
   end
 
   def your_carts
-    @carts = Cart.eager_load(:line_items).where(user_id: current_user.id).order(id: :desc)
+    @carts = Cart.includes(:line_items).where(user_id: current_user.id).order(id: :desc)  
     # @line_items_of_carts = LineItem.where(cart_id: @carts.ids)
   end
 

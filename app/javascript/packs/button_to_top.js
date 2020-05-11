@@ -1,3 +1,5 @@
+require("packs/jquery_raty")
+
 $(document).ready(function(){
   
   var mybutton = document.getElementById("myBtn");

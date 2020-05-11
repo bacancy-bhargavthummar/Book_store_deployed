@@ -3,7 +3,7 @@
 module UsersHelper
 
   def all_book_selling_quantity_graph
-    Book.pluck(:name, :selling_quantity)
+    Book.order(selling_quantity: :desc).pluck(:name, :selling_quantity).first(20) 
   end
   
 end

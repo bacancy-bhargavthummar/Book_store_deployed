@@ -5,7 +5,12 @@
 
 <p>
 	<strong>Comment:</strong>
-	<%= comment.body %>
+  <%= comment.body %>
+  
+  <p>
+    <div class="star-rating" data-score= <%= comment.rating %> ></div>
+  </p>
+
   <% if current_user && current_user.admin %>
     <%= button_to 'Destroy Comment', [comment.book, comment],
     method: :delete, remote: true,
@@ -13,3 +18,14 @@
   <% end %>
 </p>
 <hr>
+
+<script>
+    $('.star-rating').raty({
+      path: '/assets/',
+      readOnly: true,
+      half: 'true',
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>
