@@ -1,5 +1,8 @@
 document.getElementById("comments").innerHTML = "<%= j render @book.comments %>";
 
+$('#star-rating')[0].lastChild.value = 0
+$('#star-rating')[0].lastElementChild.value = 0
+
 $(".my_comment_form").trigger('reset');
 
 $('.star-rating').raty({
