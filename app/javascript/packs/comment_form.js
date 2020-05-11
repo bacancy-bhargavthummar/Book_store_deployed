@@ -1,3 +1,5 @@
+require("packs/jquery_raty")
+
 $(document).ready(function(){
   $(".my_comment_form").submit(function(){
     var body = $('#comment_body').val();

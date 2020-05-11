@@ -1,4 +1,5 @@
-<br>
+<%= javascript_pack_tag 'button_to_top' %>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-3">
@@ -29,6 +30,8 @@
           <h5 class="card-title">Author : <%= @book.author %></h5>
           <h5 class="card-title">ISBN : <%= @book.isbn %></h5>
           <h5 class="card-title">Category : <%= @book.category.name %></h5>
+          <h5 class="card-title">Rating :</h5> <div class="star-rating" data-score= <%= @book.comments.get_average %> ></div>
+
           <% if current_user && current_user.admin %>
             <p>
               <h5 class="card-title">Total Quantity : <%= @book.total_qty %></h5>
@@ -58,3 +61,14 @@
     </div>
   </div>
 </div>
+
+<script>
+    $('.star-rating').raty({
+      path: '/assets/',
+      readOnly: true,
+      half: 'true',
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script> 

@@ -1,3 +1,5 @@
+<%= javascript_pack_tag 'jquery_raty' %>
+
 <div class="col-lg-6 col-md-6 mb-4">
   <div class="card h-800">
     <%= book.image.present? ? image_tag(book.image, style:" margin-left: auto; margin-right: auto; width:300px; height:300px") : "Image Not Available"%><hr>  
@@ -8,7 +10,8 @@
       <h5><b>Category :</b> <%= book.category.name %></h5>
       <h5><b>Price :</b> <%= book.price %> INR </h5>
       <h5><b>Author :</b> <%= book.author %></h5>
-      <h5><b>ISBN :</b> <%= book.isbn %></h5><hr>
+      <h5><b>ISBN :</b> <%= book.isbn %></h5>
+      <h5><b>Rating : </b><%= book.comments.get_average %><%= image_tag('/assets/star-on.png', style:'width:20px;height:20px;margin-bottom:5px;margin-left:3px') %></h5><hr>
       <p><h5><i>Description : </i></h5><%= book.description.truncate(50) %></p>
     </div>
     <div class="card-footer">
@@ -20,3 +23,14 @@
     </div>
   </div>
 </div>
+
+<script>
+    $('.star-rating').raty({
+      path: '/assets/',
+      readOnly: true,
+      half: 'true',
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>
