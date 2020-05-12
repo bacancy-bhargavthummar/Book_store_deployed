@@ -6,8 +6,8 @@
         <%= link_to "Home",root_path %>
             
         <% if current_user %>
-          <%= link_to 'Your Uploads','/books/user_uploads' %>
-      
+        <%= link_to 'Your Uploads',individual_uploads_users_path(current_user) %> 
+              
           <div class="btn-group">
             <button id="btnGroupDrop1" type="button" class="btn btn-secondary btn-sm dropdown-toggle border border-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               &nbsp;&nbsp;My Account&nbsp;&nbsp;
