@@ -7,7 +7,7 @@ class Book < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :book_sellers, dependent: :destroy
   # has_many :users, through: :book_sellers, source: :seller
-  has_one_attached :image
+  has_one_attached :image, dependent: :destroy
   has_many :line_items
 
   # VALIDATIONS

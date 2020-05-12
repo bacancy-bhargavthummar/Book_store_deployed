@@ -7,17 +7,48 @@
 	<strong>Comment:</strong>
   <%= comment.body %>
   
+  <div style="display: inline-block !important;"><a href="#comment-<%= comment.id %>" data-toggle="modal"><%= comment.likes.count %> <%= 'Like'.pluralize(comment.likes.count) %></a></div>
   <p>
     <div class="star-rating" data-score= <%= comment.rating %> ></div>
   </p>
 
-  <% if current_user && current_user.admin %>
-    <%= button_to 'Destroy Comment', [comment.book, comment],
-    method: :delete, remote: true,
+  <% if like_present?(current_user,comment) %>
+    <%= link_to 'Liked', book_comment_like_path(@book, comment, @like), method: :delete, remote: true, class: 'btn btn-outline-primary btn-sm' %>
+  <% else %>
+    <%= link_to 'Like', book_comment_likes_path(@book, comment), method: :post, remote: true, class: 'btn btn-outline-primary btn-sm' %>  
+  <% end %>
+
+  <% if current_user && (current_user == comment.user || current_user.admin) %>
+    <%= link_to 'Destroy Comment', [comment.book, comment],
+    method: :delete, remote: true, class: "btn btn-outline-danger btn-sm",
     data: { confirm: 'Are you sure?' } %> 
   <% end %>
-</p>
-<hr>
+</p><hr>
+
+<div id="comment-<%= comment.id %>" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title"> Liked By</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body table-wrapper-scroll-y my-custom-scrollbar">
+        <% if comment.likes.present? %>
+          <ul class="list-group">
+            <% comment.likes.each do |comment_user| %>
+              <li class="list-group-item"><%= comment_user.user.name %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <h2> No Likes Yet</h2>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
     $('.star-rating').raty({
