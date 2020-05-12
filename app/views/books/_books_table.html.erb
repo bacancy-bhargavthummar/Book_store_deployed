@@ -1,31 +1,20 @@
-<%= javascript_pack_tag 'button_to_top' %>
-
-<h1>Your Uploads</h1>
-<br><hr><br>
-
-<%= form_tag("/books/user_uploads", method: "get", remote: false, class:'form-inline md-form mr-auto mb-4') do %>
-  <%= text_field_tag :query, params[:query], class: "form-control mr-sm-2" %>
-  <button class="btn btn-dark" type="submit">Search</button>
-<% end %>
-  
 <table class="table">
   <thead class="thead-dark">
     <tr>
       <th width="10%">Image</th>
-      <th width="8%">Name</th>
-      <th width="8%">Category</th>
-      <th width="8%">Price</th>
-      <th width="8%">Description</th>
-      <th width="8%">Author</th>
-      <th width="8%">ISBN</th>
-      <th width="8%">Total Qty</th>
-      <th width="8%">Sold Qty</th>
-      <th width="10%">Selling Graph</th>
-      <th width="8%"></th>
-      <th width="8%"></th>
+      <th width="9%">Name</th>
+      <th width="9%">Category</th>
+      <th width="9%">Price</th>
+      <th width="9%">Description</th>
+      <th width="9%">Author</th>
+      <th width="9%">ISBN</th>
+      <th width="9%">Total Qty</th>
+      <th width="9%">Sold Qty</th>
+      <th width="9%"></th>
+      <th width="9%"></th>
       <th></th>
     </tr>
-  </thead>    
+  </thead>   
   <tbody>
     <% cache @books_result do %>
       <% @books_result.each do |book| %>
@@ -41,7 +30,9 @@
             <td width="9%"><%= book.total_qty %></td>
             <td width="9%"><%= book.selling_quantity %></td>
             <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#show_graph_<%= book.id.to_s %>"></button></td>
-           
+            <td width="9%"><%= link_to 'Show', book %></td>
+            <td><%= button_to 'Add to Cart', line_items_path(book_id: book) %></td>
+
             <div id="show_graph_<%= book.id.to_s %>" class="modal fade" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">  
                 <div class="modal-content">
@@ -50,7 +41,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
-                    <h4>Book : <%= book.name %></h4>
+                    <h4>For Book : <%= book.name %></h4>
                     <%= line_chart individual_book_selling_graph(book) %> 
                   </div>
                   <div class="modal-footer">
@@ -59,31 +50,10 @@
                 </div>
               </div>
             </div>  
-            <td width="9%"><%= link_to 'Show', book %></td>
-            <td><%= button_to 'Add to Cart', line_items_path(book_id: book) %></td>
+
           </tr>
         <% end %>
       <% end %>
     <% end %>
   </tbody>
 </table>
-
-<div class="digg_pagination">
-  <div class="page_info">
-    <%= page_entries_info @books_result %>
-  </div>  
-  <%= will_paginate @books_result %>
-</div>  
-  
-<br><hr><hr><br>
-<h2><b>Your Selling Graph</b></h2><br>
-
-<%= form_tag("/books/user_uploads", method: "get", remote: false, class:'md-form mr-auto mb-4 ml-5') do %>
-  <%= text_field_tag :min_date, params[:min_date], :class => 'start_graph', placeholder: "Start Date (dd-mm-yyyy)" %>&nbsp;&nbsp;&nbsp;&nbsp; 
-  <%= text_field_tag :max_date, params[:max_date], :class => 'end_graph', placeholder: "End date (dd-mm-yyyy)" %>&nbsp;&nbsp;&nbsp;&nbsp;
-  <button class="btn btn-dark" type="submit">Search</button>
-<% end %>
-  
-<%= column_chart @book_hash %> 
-
-  

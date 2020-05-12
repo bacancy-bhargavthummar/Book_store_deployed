@@ -56,7 +56,11 @@ class UsersController < ApplicationController
       @book_hash = Book.joins(:book_sellers).where('book_sellers.seller_id = ?', @user.id).pluck('name, selling_quantity')
     end 
     
-    @books_result = Book.where(id: [books]).paginate(per_page: 3, page: params[:page])
+    if params[:query].present?
+      @books_result = Book.searching(params[:query]).where(id: [books]).paginate(per_page: 3, page: params[:page])
+    else
+      @books_result = Book.where(id: [books]).paginate(per_page: 3, page: params[:page])
+    end
   end
 
   def destroy
@@ -78,7 +82,7 @@ class UsersController < ApplicationController
   end
   
   def check_user
-    unless current_user.admin?
+    unless (current_user.admin? || current_user.id == params[:id].to_i) 
       redirect_to root_path
     end
   end

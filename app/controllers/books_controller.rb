@@ -15,30 +15,6 @@ class BooksController < ApplicationController
     end
   end
 
-  def user_uploads
-    books = BookSeller.where('seller_id = ?', current_user.id).pluck(:book_id)
-
-    if (params[:min_date] && params[:max_date]).present?
-      books_graph = Book.user_uploads_params_graph(params, current_user)
-      @book_id_array = []
-      @book_qty_array = []
-      @book_hash = Hash.new
-
-      books_graph.each {|id, qty| @book_id_array.push(id); @book_qty_array.push(qty) }
-      @book_name = Book.where(id: [@book_id_array]).pluck(:name)
-      @book_name.each_with_index {|k,i| @book_hash[k] = @book_qty_array[i]}
-      @book_hash
-    else 
-      @book_hash = Book.joins(:book_sellers).where('book_sellers.seller_id = ?', current_user).pluck('name, selling_quantity')
-    end
-
-    if params[:query].present?
-      @books_result = Book.searching(params[:query]).where(id: [books]).paginate(per_page: 3, page: params[:page])
-    else
-      @books_result = Book.where(id: [books]).paginate(per_page: 3, page: params[:page])
-    end
-  end
-
   def show; end
 
   def new

@@ -30,7 +30,6 @@ Rails.application.routes.draw do
   end
 
   resources :books do
-    get 'user_uploads', on: :collection, action: :user_uploads
     resources :comments
   end
 
