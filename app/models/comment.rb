@@ -5,7 +5,6 @@ class Comment < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy 
 
-
   # validation
   validates :body, length: { maximum: 150, minimum: 1, message: 'must be present.' }
 
