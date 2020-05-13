@@ -5,16 +5,19 @@
     <div class="col-lg-3">
       <h1 class="my-4"><%= @book.name %></h1>
       <div class="list-group">
+        <%= link_to ' Add to Cart', line_items_path(book_id: @book.id), method: :post, class: 'btn btn-light btn-lg btn-center fa fa-shopping-cart' %>
+        <%= link_to create_destroy_user_favorites_path(current_user, @book), class:'btn btn-light btn-lg btn-center fa fa-bookmark' do %>
+          <span><%= is_favorite?(@book,current_user) %></span> 
+        <% end %> 
         <% if @book_seller.present? %>
           <% if current_user && (@book_seller.seller_id == current_user.id || current_user.admin) %>
-            <%= link_to 'Edit Book Details', edit_book_path(@book ,@book_seller), class: "list-group-item" %>
+             <%= link_to ' Edit Book Details', edit_book_path(@book ,@book_seller), class:'btn btn-light btn-lg btn-center fa fa-pencil-square-o' %> 
           <% end %>
         <% end %>
         <% if current_user && current_user.admin %>
-            <%= link_to 'Destroy', @book, method: :delete, data: { confirm: 'Are you sure?' }, class: "list-group-item" %>
+          <%= link_to ' Destroy', @book, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-light btn-lg btn-center fa fa-exclamation-triangle' %> 
         <% end %> 
-        <%= link_to 'Back', root_path, class: "list-group-item" %>
-        <td><strong><%= link_to 'Add to Cart', line_items_path(book_id: @book.id), method: :post, class: "list-group-item" %></strong></td>
+        <%= link_to ' Back', root_path, class:'btn btn-light btn-lg btn-center fa fa-backward' %> 
       </div>
     </div>
 

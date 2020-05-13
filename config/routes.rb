@@ -27,6 +27,10 @@ Rails.application.routes.draw do
     get 'rejected_requests', on: :member, action: :rejected_requests, as: :rejected_requests
     get 'individual_uploads/:id', on: :collection, action: :individual_uploads, as: :individual_uploads
     delete 'destroy', action: :destroy, as: :destroy_user
+
+    resources :favorites, only: %i[index] do
+      get 'create_destroy', on: :collection, action: :create_destroy, as: :create_destroy
+    end
   end
 
   resources :books do

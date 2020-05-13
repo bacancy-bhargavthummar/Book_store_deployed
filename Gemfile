@@ -94,3 +94,5 @@ gem 'chartkick'
 gem 'groupdate'
 
 gem 'bootstrap-datepicker-rails'
+
+gem 'font-awesome-rails' 
