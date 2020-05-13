@@ -30,7 +30,9 @@ Rails.application.routes.draw do
   end
 
   resources :books do
-    resources :comments
+    resources :comments do 
+     resources :likes, only: %i[create destroy]
+    end
   end
 
   resources :categories

@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :comment, dependent: :destroy
+  has_many :likes, dependent: :destroy 
   has_many :book_sellers, dependent: :destroy, foreign_key: :seller_id
   # has_many :books, through: :book_sellers
   has_many :carts, dependent: :destroy
