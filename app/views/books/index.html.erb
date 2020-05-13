@@ -3,7 +3,7 @@
 
 <% if current_user.admin? %>
   <h1>Books </h1>
-  <%= form_tag("/books", method: "get", remote: false, class:'form-inline md-form mr-auto mb-4') do %>
+  <%= form_tag("/books", method: "get", remote: false, class:'form-inline md-form mr-auto mb-4', style: "margin: 10px;") do %>
     <%= text_field_tag :query, params[:query], class: "form-control mr-sm-2" %>
     <button class="btn btn-dark" type="submit">Search</button>
   <% end %>
