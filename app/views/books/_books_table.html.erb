@@ -29,9 +29,9 @@
             <td width="9%"><%= book.isbn %></td>
             <td width="9%"><%= book.total_qty %></td>
             <td width="9%"><%= book.selling_quantity %></td>
-            <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#show_graph_<%= book.id.to_s %>"></button></td>
+            <td><button type="button" class= "fa fa-line-chart" data-toggle="modal" data-target="#show_graph_<%= book.id.to_s %>"></button></td> 
             <td width="9%"><%= link_to 'Show', book %></td>
-            <td><%= button_to 'Add to Cart', line_items_path(book_id: book) %></td>
+            <td><%= link_to 'Add to Cart', line_items_path(book_id: book), method: :post, class: "btn btn-primary btn-sm fa fa-shopping-cart" %></td> 
 
             <div id="show_graph_<%= book.id.to_s %>" class="modal fade" tabindex="-1">
               <div class="modal-dialog modal-dialog-centered">  

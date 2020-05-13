@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :book_sellers, dependent: :destroy, foreign_key: :seller_id
   # has_many :books, through: :book_sellers
   has_many :carts, dependent: :destroy
+  has_many :favorites, dependent: :destroy 
+  has_many :books, through: :favorites
   enum gender: %i[male female other]
   
   # VALIDATION

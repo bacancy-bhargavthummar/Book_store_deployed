@@ -1,5 +1,6 @@
 <%= javascript_pack_tag "add_cart" %>
-    
+<%= javascript_pack_tag "button_to_top" %> 
+
 <table class="table">
   <thead class="thead-dark">    
     <th>Quantity</th>
@@ -54,7 +55,7 @@
           <%= form_tag(charge_order_path(@cart), method: :get, remote: false, class: "delivery_address_form") do %>
             <b>&nbsp Delivery Address :</b> 
             <%= text_area_tag :delivery_address, "", placeholder: "Enter delivery address...", class: "form-control", style: "margin: 10px;" %><hr>
-            <button class= "btn btn-danger" type="submit">Place Order</button>
+            <button class= "btn btn-danger fa fa-shopping-bag" type="submit"> Place Order</button> 
           <% end %>
         </td>
       </tr>

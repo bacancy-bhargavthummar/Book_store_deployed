@@ -51,8 +51,7 @@
         <td><%= seller.book.isbn %></td>
         <td><%= seller.book.selling_quantity %></td>
         <td><%= link_to 'Show', seller.book, class: "btn btn-light btn-sm" %></td>
-        <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#show_graph_<%= seller.book.id.to_s %>">Show Graph</button></td>
-      
+        <td><button type="button" class="btn btn-info btn-sm fa fa-line-chart" data-toggle="modal" data-target="#show_graph_<%= seller.book.id.to_s %>"> Show Graph</button></td>      
       
         <div id="show_graph_<%= seller.book.id.to_s %>" class="modal fade" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered">  

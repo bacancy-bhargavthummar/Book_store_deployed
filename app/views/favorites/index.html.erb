@@ -1,0 +1,33 @@
+<h1 style= "text-align: center;"><i><u>Your Favorites </i></u></h1>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+		  <table class="table">
+		    <thead>
+		      <tr style="text-align: center;">
+		        <th scope="col">Sr.no</th>
+		        <th scope="col">Image</th>
+		        <th scope="col">Book Name</th>
+		        <th scope="col">Author</th>
+		        <th scope="col">Show</th>
+		        <th scope="col">Remove</th>
+		      </tr>
+		    </thead>
+        <tbody>
+          <%= @favorite_books.each_with_index do |book,i| %>
+            <tr style="text-align: center;">
+              <td><%= i+1 %></td>
+              <td>
+                <%= book.image.present? ? image_tag(book.image, class:"img-fluid img-thumbnail", style:"height: 120px; width:100px;") : "Image Not Available" %>
+              </td>
+              <td><%= book.name %></td>
+              <td><%= book.author %></td>
+              <td><%= link_to "", book_path(book), class: "fa fa-address-card-o" %></td>
+              <td><%= link_to "", create_destroy_user_favorites_path(current_user, book), class: "fa fa-times" %></td>
+            </tr>
+          <% end %>
+		    </tbody>
+		  </table>   
+    </div>
+  </div>
+</div> 
