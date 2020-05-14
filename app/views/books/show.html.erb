@@ -25,8 +25,8 @@
 
     <div class="col-lg-9">
       <div class="card mt-4">
-        <div style="width:600px; heigth: auto" >
-          <%= @book.image.present? ? image_tag(@book.image, style:"height: 300px; width:200px; padding: 10px; margin-left: 300px") : "Image Not Available"%>
+        <div>
+          <%= @book.image.present? ? image_tag(@book.image, style:"height: 300px; width:200px; display: block; margin-right: auto; margin-left: auto; padding: 15px;") : "Image Not Available" %>
         </div>
 
         <div class="card-body">
