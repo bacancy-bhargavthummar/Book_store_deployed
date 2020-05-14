@@ -29,7 +29,7 @@
       <div class="card my-4">
         <h5 class="card-header">Search</h5>
         <div class="card-body"> 
-          <%= form_tag(root_path, method: "get", remote: false, class:'form-inline md-form mr-auto mb-4') do %>
+          <%= form_tag( root_path, method: "get", remote: false, class:'form-inline md-form mr-auto mb-4', style:" margin-left: auto; margin-right: auto;") do %> 
             <%= text_field_tag :query, params[:query], class: "form-control mr-sm-2" %>
             <button class="btn btn-dark" type="submit">Search</button>
           <% end %>
